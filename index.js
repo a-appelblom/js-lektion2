@@ -44,14 +44,23 @@ const createAndAppend = (tag, parent) => {
 // Denna funktion tar in ett element och en array med styles i form av en nästlad array.
 // Den loopar igenom och lägger till alla styles på det inskickade elementet.
 const createStyle = (element, styleArrayArray) => {
-  styleArrayArray.forEach((styleArray) => {
-    element.style[styleArray[0]] = styleArray[1];
-  });
+  if (element.length) {
+    element.forEach((item) => {
+      styleArrayArray.forEach((styleArray) => {
+        item.style[styleArray[0]] = styleArray[1];
+      });
+    });
+  } else {
+    styleArrayArray.forEach((styleArray) => {
+      element.style[styleArray[0]] = styleArray[1];
+    });
+  }
 };
 
 const footer = createAndAppend("footer", body); // Skapar ett element av "footer" typen och lägger till det i body
 const footerTitle = createAndAppend("h2", footer); // Skapar ett element av "h2" typen och lägger till det i footer
 const footerList = createAndAppend("div", footer); // Skapar ett element av "div" typen och lägger till det i footer
+createStyle([body, footer], [["backgroundColor", "red"]]);
 
 // Skapar 3 a taggar och lägger dem i en div nästlad i footer.
 for (let i = 0; i < 3; i++) {
