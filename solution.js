@@ -1,6 +1,45 @@
 "use strict";
 
 const HEADING_COLOR = "darkgoldenrod";
+
+const GRID_TEXTS = [
+  {
+    title: "This is a thing",
+    subtitle: "It works like this and it is amazing",
+  },
+  {
+    title: "This is another thing",
+    subtitle: "It works like the first and it is amazing",
+  },
+  {
+    title: "his is doodad",
+    subtitle: "It doesn't really work, but thats okay",
+  },
+  {
+    title: "A rock, perhaps",
+    subtitle: "Hard and sturdy",
+  },
+  {
+    title: "Something creative",
+    subtitle: "It is more so than that bearded teacher guy",
+  },
+  {
+    title: "This is a thing",
+    subtitle: "It works like this and it is amazing",
+  },
+];
+
+const FOOTER_LINKS = [
+  { href: "https://javascript.aappelblom.tech/", text: "JavaScript-kursen" },
+  {
+    href: "https://javascript.aappelblom.tech/utbildaren",
+    text: "Utbildaren på kursen",
+  },
+  {
+    href: "https://javascript.aappelblom.tech/lektioner",
+    text: "Lektionerna på kursen",
+  },
+];
 // helper functions >>>>>>>>>>>>>>>>>>>
 
 /**
@@ -118,7 +157,7 @@ const gridSection = createAndAppend("section", main);
 const gridSectionTitle = createAndAppend(
   "h2",
   gridSection,
-  "This is the main section"
+  "Now a grid of nice info cards"
 );
 const gridSectionGrid = createAndAppend("section", gridSection);
 createStyle(gridSectionGrid, [
@@ -127,9 +166,80 @@ createStyle(gridSectionGrid, [
   ["gap", "1rem"],
 ]);
 
+for (let i = 0; i < 6; i++) {
+  const gridItem = createAndAppend("div", gridSectionGrid);
+  const gridItemTitle = createAndAppend("h3", gridItem, GRID_TEXTS[i].title);
+  const gridItemSubTitle = createAndAppend(
+    "p",
+    gridItem,
+    GRID_TEXTS[i].subtitle
+  );
+  createStyle(gridItem, [
+    ["textAlign", "center"],
+    ["border", "1px solid #fff"],
+    ["borderRadius", "1rem"],
+  ]);
+  gridItem.addEventListener("mouseover", () => {
+    createStyle(gridItem, [
+      ["color", "red"],
+      ["borderColor", "red"],
+    ]);
+  });
+  gridItem.addEventListener("mouseleave", () => {
+    createStyle(gridItem, [
+      ["color", "white"],
+      ["borderColor", "white"],
+    ]);
+  });
+}
+
+// footer >>>>>>>>>>>>>>>
+const footer = createAndAppend("footer", body);
+createStyle(footer, [
+  ["width", "100%"],
+  ["margin", "2rem auto"],
+  ["textAlign", "center"],
+]);
+const footerTitle = createAndAppend(
+  "h2",
+  footer,
+  "Lets put some links in here"
+);
+const footerLinkContainer = createAndAppend("div", footer);
+createStyle(footerLinkContainer, [
+  ["width", "100%"],
+  ["display", "flex"],
+  ["justifyContent", "space-around"],
+]);
+
+FOOTER_LINKS.forEach((link) => {
+  const linkEl = createAndAppend("a", footerLinkContainer, link.text);
+  createAttributes(linkEl, [
+    ["href", link.href],
+    ["target", "_blank"],
+    ["rel", "noreferrer noopener"],
+  ]);
+  createStyle(linkEl, [
+    ["color", "#fff"],
+    ["textDecoration", "none"],
+  ]);
+  linkEl.addEventListener("mouseover", () => {
+    createStyle(linkEl, [
+      ["color", "red"],
+      ["textDecoration", "underline"],
+    ]);
+  });
+  linkEl.addEventListener("mouseleave", () => {
+    createStyle(linkEl, [
+      ["color", "white"],
+      ["textDecoration", "none"],
+    ]);
+  });
+});
+
 // Multiples >>>>>>>>>>>>>>
 
-const headings = document.querySelectorAll("h1,h2,h3");
+const headings = document.querySelectorAll("h1,h2");
 headings.forEach((element) => {
   createStyle(element, [
     ["color", HEADING_COLOR],
